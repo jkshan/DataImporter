@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Excel";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<div class="page-header"><h3>Excel File Upload</h3></div>
+@using(Html.BeginForm("Excel",
+                        "Import",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Choose Excel:</label>
+    <input type="file" name="file" id="file" /><br><br>
+    <input type="submit" value="Upload File" onclick="ShowProcessBar()" />
+    <br><br>
+    if(!string.IsNullOrWhiteSpace(@ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+}

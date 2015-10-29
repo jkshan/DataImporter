@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DataImporter.Models.Record>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr class="page-header">
+            <th>Account</th>
+            <th>Description</th>
+            <th>Currency Code</th>
+            <th>Amount</th>
+            <th>Validation Message</th>
+        </tr>
+    </thead>
+
+    @foreach(var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @item.Account
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.CurrencyCode
+                </td>
+                <td>
+                    @item.Amount
+                </td>
+                <td>@item.ErrorMessages</td>
+            </tr>
+        </tbody>
+    }
+</table>

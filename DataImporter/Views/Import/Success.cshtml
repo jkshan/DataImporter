@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<div class="alert alert-success page-header">Success</div>
+@if(!string.IsNullOrWhiteSpace(@ViewBag.FileName))
+{
+    <h4>@ViewBag.FileName - Uploaded</h4>
+}
+<br />
+<div class="panel panel-info">
+    <div class="panel-heading">Failed Data</div>
+    <div class="panel-body">
+        @if(Model != null)
+        {
+            Html.RenderPartial("ShowData");
+        }
+    </div>
+</div>
+@Html.Partial("_Links")
