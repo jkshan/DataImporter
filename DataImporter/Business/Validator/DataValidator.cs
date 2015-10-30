@@ -22,7 +22,7 @@ namespace DataImporter.Business.Validator
         /// Validates the Records for Errors
         /// </summary>
         /// <param name="row">Row which needs to be validated</param>
-        /// <returns>Returns the Row State(Valid or Invalid)</returns>
+        /// <returns>Returns the Row State(Valid or Invalid), also updates the Error Message accordingly</returns>
         public static bool ValidateData(Record row)
         {
             if(string.IsNullOrWhiteSpace(row.Account))

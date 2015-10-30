@@ -2,19 +2,31 @@
     ViewBag.Title = "Success";
     Layout = "~/Views/_Layout.cshtml";
 }
-<div class="alert alert-success page-header">Success</div>
 @if(!string.IsNullOrWhiteSpace(@ViewBag.FileName))
 {
-    <h4>@ViewBag.FileName - Uploaded</h4>
-}
-<br />
-<div class="panel panel-info">
-    <div class="panel-heading">Failed Data</div>
-    <div class="panel-body">
-        @if(Model != null)
-        {
-            Html.RenderPartial("ShowData");
-        }
+    <div class="alert alert-success page-header">
+        @ViewBag.FileName - Imported
     </div>
-</div>
+    <ul class="list-group" style="width:250px">
+        @if(@ViewBag.SuccessCount != null)
+        {
+            <li class="list-group-item">No Of Rows Imported : <span class="label label-default label-pill label-success">@ViewBag.SuccessCount</span></li>
+        }
+        @if(@ViewBag.FailCount != null)
+        {
+            <li class="list-group-item">No of Rows Failed : <span class="label label-default label-pill label-danger">@ViewBag.FailCount</span> </li>
+        }
+    </ul>
+}
+@if(Model != null)
+{
+    <div class="panel panel-info">
+        <div class="panel-heading">Failed Data</div>
+        <div class="panel-body">
+            @{
+    Html.RenderPartial("ShowData");
+            }
+        </div>
+    </div>
+}
 @Html.Partial("_Links")

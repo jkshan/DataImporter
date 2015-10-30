@@ -17,6 +17,13 @@ namespace DataImporter.Business
         private string _connectionString;
         private int _batchCount;
 
+        /// <summary>
+        /// Creates the Importer object
+        /// </summary>
+        /// <param name="Parser">Parser to be used for reading the stream</param>
+        /// <param name="ConnectionString">Connection string of the Target DB</param>
+        /// <param name="TargetTableName"> Table Name in the target DB to which the data to be pushed</param>
+        /// <param name="BatchCount">Batch Size for Sql Pushing</param>
         public Importer(IParser Parser, string ConnectionString, string TargetTableName, int BatchCount)
         {
             _parser = Parser;
@@ -77,12 +84,10 @@ namespace DataImporter.Business
         }
 
         /// <summary>
-        /// Process the Records in batch Manner
+        /// Performance the Import action based on the parser supplied
         /// </summary>
-        /// <param name="SqlConnection">Target Sql Database's Connection String</param>
-        /// <param name="TargetTableName">Table Name in the Target Database</param>
-        /// <returns></returns>
-        public async Task<List<Record>> Process()
+        /// <returns>Tuple with Success Count, Fail Count and List of Failed Elements</returns>
+        public async Task<Tuple<int, int, List<Record>>> Process()
         {
             var ErrorList = new List<Record>();
             int createdCount = 0, failedCount = 0;
@@ -145,7 +150,7 @@ namespace DataImporter.Business
                     await InsertDataTable(sqlBulkCopy, dataTable);
                 }
             }
-            return ErrorList;
+            return new Tuple<int, int, List<Record>>(createdCount, failedCount, ErrorList);
         }
     }
 }

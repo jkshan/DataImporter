@@ -49,9 +49,13 @@ namespace DataImporter.Controllers
             var parser = new ExcelParser(file.InputStream, ExcelSheetName);
             var importer = new Importer(parser, ConnectionString, TableName, 10000);
 
-            var dataTable = await importer.Process();
+            var Result = await importer.Process();
 
-            return View("Success", dataTable);
+            ViewBag.SuccessCount = Result.Item1;
+            ViewBag.FailCount = Result.Item2;
+
+            return View("Success", Result.Item3);
+
         }
 
         [HttpPost]
@@ -77,11 +81,12 @@ namespace DataImporter.Controllers
 
             var importer = new Importer(parser, ConnectionString, TableName, 10000);
 
-            var errorRecords = await importer.Process();
+            var Result = await importer.Process();
 
-            //var dataTable = await new CSVParser(file.InputStream).Process(ConnectionString, TableName);
+            ViewBag.SuccessCount = Result.Item1;
+            ViewBag.FailCount = Result.Item2;
 
-            return View("Success", errorRecords);
+            return View("Success", Result.Item3);
         }
 
 
